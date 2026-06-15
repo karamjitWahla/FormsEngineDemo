@@ -1,1 +1,10 @@
 .env.local
+
+# Visual Studio temporary files
+.vs/
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+bbin/
+obj/
