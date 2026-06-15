@@ -1,0 +1,71 @@
+version: "3"
+
+services:
+  postgres:
+    image: ${POSTGRES_IMAGE:-postgres:15}
+    restart: always
+    ports:
+      # Restricts postgres access locally to the host to protect your data
+      - "127.0.0.1:5432:5432"
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  redis:
+    image: ${REDIS_IMAGE:-redis:7-alpine}
+    restart: always
+
+  # Required ToolJet v3 App Builder API Engine
+  postgrest:
+    image: postgrest/postgrest:v12.2.0
+    restart: always
+    depends_on:
+      - postgres
+    environment:
+      PGRST_DB_URI: ${PGRST_DB_URI}
+      PGRST_JWT_SECRET: ${PGRST_JWT_SECRET}
+      PGRST_DB_SCHEMA: public
+      PGRST_DB_ANON_ROLE: tooljet
+
+  tooljet:
+    image: ${TOOLJET_IMAGE}
+    restart: always
+    depends_on:
+      - postgres
+      - redis
+    ports:
+      - "${TOOLJET_PORT:-8080}:3000"
+    command: npm run start:prod
+    env_file:
+      - .env.local
+    environment:
+      TOOLJET_HOST: ${TOOLJET_HOST}
+
+      TOOLJET_DB_HOST: ${TOOLJET_DB_HOST}
+      TOOLJET_DB_PORT: ${TOOLJET_DB_PORT}
+      TOOLJET_DB_USER: ${TOOLJET_DB_USER}
+      TOOLJET_DB_PASS: ${TOOLJET_DB_PASS}
+      TOOLJET_DB_NAME: ${TOOLJET_DB_NAME}
+      DATABASE_URL: ${DATABASE_URL}
+
+      PGRST_DB_URI: ${PGRST_DB_URI}
+      PGRST_JWT_SECRET: ${PGRST_JWT_SECRET}
+
+      REDIS_HOST: ${REDIS_HOST}
+      REDIS_PORT: ${REDIS_PORT}
+
+      SECRET_KEY_BASE: ${SECRET_KEY_BASE}
+      LOCKBOX_MASTER_KEY: ${LOCKBOX_MASTER_KEY}
+
+      TOOLJET_LICENSE_KEY: ${TOOLJET_LICENSE_KEY}
+      TOOLJET_EDITION: ${TOOLJET_EDITION}
+
+      NODE_ENV: ${NODE_ENV}
+      SERVE_CLIENT: ${SERVE_CLIENT}
+
+volumes:
+  pgdata:
+    driver: local
