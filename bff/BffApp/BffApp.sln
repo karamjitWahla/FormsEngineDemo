@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 18
+VisualStudioVersion = 18.4.11612.150 stable
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BffApp", "BffApp.csproj", "{BB3CCD0D-F7F1-2A74-27F1-C9D1A88B3942}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BB3CCD0D-F7F1-2A74-27F1-C9D1A88B3942}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BB3CCD0D-F7F1-2A74-27F1-C9D1A88B3942}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BB3CCD0D-F7F1-2A74-27F1-C9D1A88B3942}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BB3CCD0D-F7F1-2A74-27F1-C9D1A88B3942}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {80285295-27E0-4840-AFA9-471137480873}
+	EndGlobalSection
+EndGlobal
