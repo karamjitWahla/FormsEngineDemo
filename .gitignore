@@ -1,5 +1,5 @@
 .env.local
-
+.env.dev
 # Visual Studio temporary files
 .vs/
 [Dd]ebug/
