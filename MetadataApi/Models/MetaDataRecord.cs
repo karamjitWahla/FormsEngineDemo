@@ -55,6 +55,7 @@ public class GraphicInfo
 public class Contact
 {
     public Guid Id { get; set; }
+    public string? Phone { get; set; }
     public long MetadataId { get; set; }
     public string? OrganisationName { get; set; }
     public string? IndividualName { get; set; }

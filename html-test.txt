@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Page</title>
+</head>
+<body>
+
+<h1>My Local Page</h1>
+
+<iframe
+    id="myFrame"
+    src="http://localhost:8080/applications/geoappdemo"
+    width="100%"
+    style="border:none;"
+    onload="resizeIframe()">
+</iframe>
+
+<script>
+function resizeIframe() {
+    const iframe = document.getElementById('myFrame');
+
+    try {
+        const doc = iframe.contentWindow.document;
+
+        const height = Math.max(
+            doc.body.scrollHeight,
+            doc.documentElement.scrollHeight
+        );
+
+        iframe.style.height = height + 'px';
+    } catch (e) {
+        console.error('Cannot access iframe content:', e);
+    }
+}
+</script>
+
+</body>
+</html>

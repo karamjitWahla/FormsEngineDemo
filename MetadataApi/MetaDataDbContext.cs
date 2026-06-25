@@ -8,14 +8,26 @@ public class MetadataDbContext : DbContext
     public MetadataDbContext(DbContextOptions<MetadataDbContext> options) : base(options)
     {
     }
-
+    public virtual DbSet<MetaDataMaster> MetaDataMasters { get; set; }
     public DbSet<MetadataRecord> MetadataRecords => Set<MetadataRecord>();
     public DbSet<GraphicInfo> GraphicInfos => Set<GraphicInfo>();
-
+    public DbSet<Experiment> Experiments { get; set; }
     public DbSet<Contact> Contacts => Set<Contact>();
+
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<Experiment>()
+    .HasOne(e => e.Contact)
+    .WithMany()
+    .HasForeignKey(e => e.ContactId);
+
+        modelBuilder.Entity<MetaDataMaster>()
+    .HasOne(m => m.Contact)
+    .WithMany()
+    .HasForeignKey(m => m.ContactId)
+    .IsRequired();
+
         modelBuilder.Entity<MetadataRecord>(entity =>
         {
             entity.ToTable("identification_info");
@@ -63,7 +75,8 @@ public class MetadataDbContext : DbContext
 
             entity.Property(e => e.Id)
                 .HasColumnName("id");
-
+            entity.Property(e => e.Phone)
+                .HasColumnName("phone");
             entity.Property(e => e.MetadataId)
                 .HasColumnName("metadata_id");
 
